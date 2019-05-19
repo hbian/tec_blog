@@ -1,3 +1,6 @@
-## 技术总结
 
-暂时的工作方向是运维大数据开发, python, linux, devops, hadoop.
+记录一下技术方面的总结
+## PYTHON
+
+<a href="python/multiprocessing.html">multiprocessing</a>
+
