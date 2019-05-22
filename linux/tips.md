@@ -1,0 +1,4 @@
+## Disable NetworkManager
+踩坑，
+在centos7中如果修改了dns配置/etc/resolve.conf 之前没有disable NetworkManager 会导致配置在重启后被还原，所以配置vm时一定要Disable NetworkManager。
+原因是Centos7的网络配置服务已经替换成NetworkManager， 在centos6中不需要disbale
