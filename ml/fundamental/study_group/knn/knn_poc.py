@@ -22,7 +22,7 @@ X_train = np.array(raw_data_X)
 Y_train = np.array(raw_data_Y)
 
 #首先汇出良性结果的图， 颜色为绿, label对图上画出的点进行标注
-#先进行判断y为0时，然后取值x轴0的数值 X_train[Y_train==0,0]
+#X_train[Y_train==0,0]: 先进行判断y为0时，然后取值x轴0的数值 
 plt.scatter(X_train[Y_train==0,0],X_train[Y_train==0,1], color='g', label = 'Good')
 plt.scatter(X_train[Y_train==1,0],X_train[Y_train==1,1], color='r', label = 'Bad')
 
