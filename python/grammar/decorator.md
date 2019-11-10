@@ -14,9 +14,9 @@ class Student(object):
 
 
 s = Student()
-print 's.time ={}' .format(s.time)
+print "s.time ={}" .format(s.time)
 s.time = 2000
-print 's.time ={}' .format(s.time)
+print "s.time ={}" .format(s.time)
 
 ```
 
@@ -46,5 +46,5 @@ class Student(object):
 
 s = Student()
 s.time = 2000
-print 's.time ={}' .format(s.time)
+print "s.time ={}" .format(s.time)
 ```

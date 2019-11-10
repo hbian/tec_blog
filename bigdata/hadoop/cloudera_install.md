@@ -30,55 +30,11 @@ Gateway configuration
 DataNode
 NodeManager
 
-## CDH manager installation
+## CDH Server installation
+安装主要分为以下几个步骤
+* 安装cdh server 服务器， 配置数据库， 配置parcels
+* 安装cdh其他服务器，安装agent,安装parcel，加入集群
 
-### Setup yum repo
-
-首先下载以下rpm包
-https://archive.cloudera.com/cm6/6.1.1/redhat7/yum/RPMS/x86_64/
-cloudera-manager-daemons-6.1.1-853290.el7.x86_64.rpm  oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm
-cloudera-manager-agent-6.1.1-853290.el7.x86_64.rpm  cloudera-manager-server-6.1.1-853290.el7.x86_64.rpm
-https://archive.cloudera.com/cm6/6.1.1/
-allkeys.asc
-```
-setup httpd service
-yum -y install httpd createrepo
-
-systemctl start httpd
-systemctl enable httpd
-然后进入到前面准备好的存放Cloudera Manager RPM包的目录cloudera-repos下：
-cd /upload/cloudera-repos/
-生成RPM元数据：
-createrepo .
-
-然后将cloudera-repos目录移动到httpd的html目录下：
-mv cloudera-repos /var/www/html/
-确保可以通过浏览器查看到这些RPM包：
-img
-接着在Cloudera Manager Server主机上创建cm6的repo文件（要把哪个节点作为Cloudera Manager Server节点，就在这个节点上创建repo文件）：
-cd /etc/yum.repos.d
-vim cloudera-manager.repo
-添加如下内容：
-
-[cloudera-manager]
-name=Cloudera Manager 6.0.1
-baseurl=http://cdh601/cloudera-repos/
-gpgcheck=0
-enabled=1
-保存，退出,然后执行yum clean all && yum makecache命令：
-```
-
-### Setup parcel
-
-```
-下载CDH-6.1.1-1.cdh6.1.1.p0.875250-el7.parcel, manifest.json
-https://archive.cloudera.com/cdh6/6.1.1/parcels/
-
-需要手动用命令生成sha1,下载的无法直接使用而且需重新命名
-sha1sum CDH-6.1.1-1.cdh6.1.1.p0.875250-el7.parcel | awk '{ print $1 }' > CDH-6.1.1-1.cdh6.1.1.p0.875250-el7.parcel.sha
-
-manifest.json和.sha缺一不可，否则安装时无法找到parcel文件
-```
 
 ### Update hostname
 ```
@@ -89,7 +45,7 @@ sudo hostnamectl set-hostname cdhmanager.amcc.tz
 
 
 #Edit /etc/sysconfig/network with the FQDN of this host only
-/etc/sysconfig/network
+vim /etc/sysconfig/network
 HOSTNAME=cdhmanager.amcc.tz
 ```
 
@@ -119,36 +75,98 @@ sudo sysctl -w vm.swappiness=1
 ```
 
 
-### jdk installation
+### package installation
 ```
-sudo yum --nogpgcheck localinstall ./oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm -y
-```
+#Download rpm package
+#https://archive.cloudera.com/cm6/6.0.1/redhat7/yum/RPMS/x86_64/
+oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm
+cloudera-manager-agent-6.0.1-610811.el7.x86_64.rpm
+cloudera-manager-daemons-6.0.1-610811.el7.x86_64.rpm
 
-### mysql driver installation
-```
+#install jdk
+sudo yum --nogpgcheck localinstall ./oracle-j2sdk1.8-1.8.0+update181-1.x86_64.rpm -y
+
+#install mysql driver
 tar xzvf mysql-connector-java-5.1.47.tar.gz
 mkdir -p /usr/share/java/
 cd mysql-connector-java-5.1.47
 sudo cp mysql-connector-java-5.1.47-bin.jar /usr/share/java/mysql-connector-java.jar
-```
 
 ### Install Cloudera Manager Server
-```
-sudo yum --nogpgcheck localinstall ./cloudera-manager-daemons-6.1.1-853290.el7.x86_64.rpm ./cloudera-manager-agent-6.1.1-853290.el7.x86_64.rpm ./cloudera-manager-server-6.1.1-853290.el7.x86_64.rpm -y
+sudo yum --nogpgcheck localinstall ./cloudera-manager-daemons-6.0.1-610811.el7.x86_64.rpm ./cloudera-manager-agent-6.0.1-610811.el7.x86_64.rpm ./cloudera-manager-server-6.1.1-853290.el7.x86_64.rpm -y
 ```
 
 ### Configure DB
 
 ```
 create database cdhpro
-GRANT ALL ON cdhpro.* TO 'cdhpro'@'%' IDENTIFIED BY 'cdhpro123456';
+GRANT ALL ON gauss.* TO 'gauss'@'%' IDENTIFIED BY 'gauss123456';
 
-#Install mysql driver
-tar xzvf mysql-connector-java-5.1.47.tar.gz
-mkdir -p /usr/share/java/
-cd mysql-connector-java-5.1.47
-sudo cp mysql-connector-java-5.1.47-bin.jar /usr/share/java/mysql-connector-java.jar
+#Setup database from cdh manager server
+/opt/cloudera/cm/schema/scm_prepare_database.sh mysql -h 10.72.84.99 gauss gauss gauss123456
 ```
+
+### start cloudera-scm-server 和 cloudera-scm-agent
+首先cloudera-scm这个用户和组必须建立， 然后上一步中的的配置写在
+```
+#Check db.properties
+cat /etc/cloudera-scm-server/db.properties
+
+#Check log folder owner
+[root@cdhmanager tmp]# ll /var/log/|grep cloudera-scm
+drwxr-x---  2 cloudera-scm cloudera-scm    204 Jul 17 11:22 cloudera-scm-agent
+drwxr-x---  2 cloudera-scm cloudera-scm   4096 Nov  3 05:21 cloudera-scm-server
+
+#start service
+sudo systemctl start cloudera-scm-server
+tail -f /var/log/cloudera-scm-server/cloudera-scm-server.log
+#wait for msg 
+2019-11-06 17:40:26,692 INFO WebServerImpl:com.cloudera.server.cmf.WebServerImpl: Started Jetty server.
+```
+
+server 启动后， 修改/etc/cloudera-scm-agent/config.ini中
+server_host=cdhmanager.gauss.tz， 然后systemctl start cloudera-scm-agent
+
+
+### Setup parcel
+http://10.72.83.167:7180 admin/admin 选择好cdh版本号，开始配置parcel
+```
+mkdir -p /data/cdh/parcels
+下载CDH-6.1.1-1.cdh6.1.1.p0.875250-el7.parcel, manifest.json
+https://archive.cloudera.com/cdh6/6.1.1/parcels/
+
+需要手动用命令生成sha1,下载的无法直接使用而且需重新命名
+sha1sum CDH-6.0.1-1.cdh6.0.1.p0.590678-el7.parcel | awk '{ print $1 }' >CDH-6.0.1-1.cdh6.0.1.p0.590678-el7.parcel.sha
+
+manifest.json和.sha缺一不可，否则安装时无法找到parcel文件
+
+
+#在网页中配置parcel文件夹/data/cdh/parcels，如果parcels文件夹找不到查看
+/var/log/cloudera-scm-agent/cloudera-scm-agent.log， cloudera-scm-agent负责部分parcels文件的处理
+
+#类似报错可以忽略
+[06/Nov/2019 18:36:31 +0000] 19380 MainThread parcel       ERROR    Exception while reading parcel: CDH-6.0.1-1.cdh6.0.1.p0.590678-el7.parcel
+Traceback (most recent call last):
+  File "/opt/cloudera/cm-agent/lib/python2.7/site-packages/cmf/parcel.py", line 114, in refresh
+    fd = open(manifest)
+
+#注意修改文件夹位置后，需要重启cloudera-scm-agent 和 cloudera-scm-server
+```
+
+
+## CDH node installation
+server节点安装好后首先安装master节点.
+Node 节点重复上面server安装中的Update hostname和 system optimisation步骤，
+在package installation中， 安装除了server以外的package，这样提前安装好cloudera-scm-agent，这样在加入node到cluster时可以直接添加避免通过local repo的形式安装agent.
+
+agent安装好后， 加入host to cluster 
+http://10.72.83.167:7180/cmf/add-hosts-wizard
+然后install parcels
+
+
+## HIVE
+Create a seperated database for hive with latin1 as character set.
+
 
 ### Spark
 
@@ -164,7 +182,8 @@ at org.apache.hadoop.hdfs.server.namenode.FSPermissionChecker.check(FSPermission
 解决办法
 ```
 #新建这个user的路径
-hdfs dfs -mkdir /user/root
+sudo -u hdfs hdfs dfs -mkdir /user/root
+sudo -u hdfs hadoop fs -chown root /user/root
 ```
 
 ### TIPS
