@@ -1,5 +1,15 @@
 记录一下技术方面的总结
 
+## Machine learning
+
+### fundamental
+<ul>
+<li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
+<li><a href="ml/fundamental/study_group/knn/knn.html">knn</a></li>
+</ul>
+
+
+
 ## PYTHON
 
 ### design_pattern
@@ -8,7 +18,7 @@
 <li><a href="python/design_pattern/singleton.html">singleton</a></li><li><a href="python/decorator.html">decorator</a></li>
 </ul>
 
-## Grammar
+## grammar
 <ul>
 <li><a href="python/grammar/arg_kwargs.html">arg_kwargs</a></li>
 <li><a href="python/grammar/context_manager.html">context_manager</a></li>
@@ -56,12 +66,6 @@
 <li><a href="databases/influxdb/influxdb_tips.html">influxdb_tips</a></li>
 </ul>
 
-## Machine learning
-
-### fundamental
-<ul>
-<li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
-</ul>
 
 
 ## linux
