@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[6]:
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -25,7 +22,7 @@ X_train = np.array(raw_data_X)
 Y_train = np.array(raw_data_Y)
 
 #首先汇出良性结果的图， 颜色为绿, label对图上画出的点进行标注
-#先进行判断y为0时，然后取值x轴0的数值 X_train[Y_train==0,0]
+#X_train[Y_train==0,0]: 先进行判断y为0时，然后取值x轴0的数值 
 plt.scatter(X_train[Y_train==0,0],X_train[Y_train==0,1], color='g', label = 'Good')
 plt.scatter(X_train[Y_train==1,0],X_train[Y_train==1,1], color='r', label = 'Bad')
 
@@ -36,8 +33,6 @@ plt.axis([0,10,0,5])
 plt.legend()
 plt.show()
 
-
-# In[18]:
 
 
 # Calculate distances
@@ -64,3 +59,11 @@ votes = Counter(k_lables)
 votes.most_common()
 print("test result: {}".format(votes.most_common()[0][1]))
 
+
+#Implementation with sklearn
+from sklearn.neighbors import KNeighborsClassifier
+kNN_classifier = KNeighborsClassifier(n_neighbors=k)
+kNN_classifier.fit(X_train, Y_train)
+#reshape()成一个二维数组，第一个参数是1表示只有一个数据，第二个参数-1，numpy自动决定第二维度有多少
+y_predict = kNN_classifier.predict(X_test.reshape(1,-1))
+print(y_predict)
