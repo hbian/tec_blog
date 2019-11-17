@@ -1,17 +1,17 @@
 # 如何评价模型的好坏
+WW2的学习内容
+[数据科学家学习小组第二周](https://mp.weixin.qq.com/s/iNLU2oRrqO7QeQuvNJOxvA)
+
 * 数据拆分：训练数据集&测试数据集
 
 * 评价分类结果：精准度、混淆矩阵、精准率、召回率、F1 Score、ROC曲线等
 
 * 评价回归结果：MSE、RMSE、MAE、R Squared
 
-[数据科学家学习小组第二周](https://mp.weixin.qq.com/s/iNLU2oRrqO7QeQuvNJOxvA)
 
 [机器学习的敲门砖：kNN算法  - 中](https://mp.weixin.qq.com/s/vvCM0vWH5kmRfrRWxqXT8Q)
 
-
 [评价分类结果（上）](https://mp.weixin.qq.com/s/Fi13jaEkM5EGjmS7Mm_Bjw)
-
 
 [模型之母：线性回归的评价指标 ](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483749&idx=1&sn=0383d2b98ff1b8e4f38e7e96ced3918a&scene=21#wechat_redirect)
 
@@ -41,7 +41,8 @@ print(y.shape)
 有2种方法能够进行分解这个数据集：
 
 * 将x, y合并为一个矩阵，然后对矩阵进行shuffle, 这样x,y 之间的对应关系仍然保持着
-使用np.concatenate方法进行矩阵合并时，必须保证矩阵保持同样的形状，比如纵向拼接，那么必须保证2个数据集有相同的行数，那么就只是将列合并起来， 所以先reshape y, 使其成为一个150行，1列的数组，y.reshape(-1, 1)， 中-1表示自行计算行数，列数为1。
+使用np.concatenate方法进行矩阵合并时，必须保证矩阵保持同样的形状，比如纵向拼接，那么必须保证2个数据集有相同的行数，那么就只是将列合并起来， 所以先reshape y, 使其成为一个150行，1列的数组，y.reshape(-1, 1)， 中-1表示自行计算行数，列数为1.
+
 ```
 print(y)
 #[0 0 ...1 1 ..22]
@@ -59,8 +60,8 @@ print(temp_conca)
 #调用np.random.shuffle会对数组进行重新洗牌，打乱之前的顺序。
 np.random.shuffle(temp_conca)
 print(temp_conca)
-
 ```
+
 
 * 对y的索引进行乱序，根据索引确定与X的对应关系，最后再通过乱序的索引进行赋值
 
@@ -77,6 +78,8 @@ print(train_index)
 print(x_train)
 print("{} {}".format(x_train.shape, y_train.shape))
 ```
+
+
 x_train=x[train_index] 这里可以看到一个二维数组，当只给第一项赋值的时候，会选取相对应的行然后取所有的列
 
 仿照sklearn实现自己的train_test_split
