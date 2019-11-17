@@ -70,6 +70,7 @@ KNN特点：
 选择机器学习算法 -> 机器学习算法.fit(x_train, y_train) -> 得到模型 -> 模型.predict(x_test)-> 输出结果.
 kNN算法没有模型，模型其实就是训练数据集，可以在简单版本的KNN实现中看到fit方法仅仅是存储训练集，predict的过程就是求k近邻的过程。
 
+综合前面的POC的代码:[仿照sklearn实现自己的knn](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/knn_sk_like.py)
 
 ## KNN需要注意的几个问题
 

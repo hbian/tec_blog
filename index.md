@@ -7,6 +7,9 @@
 <li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
 <li><a href="ml/fundamental/study_group/knn/knn.html">knn</a></li>
 </ul>
+<li><a href="ml/fundamental/study_group/knn/evaluation.md.html">如何评价模型</a></li>
+</ul>
+
 
 
 
