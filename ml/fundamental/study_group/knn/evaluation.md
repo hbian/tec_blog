@@ -81,9 +81,6 @@ print("{} {}".format(x_train.shape, y_train.shape))
 
 
 x_train=x[train_index] 这里可以看到一个二维数组，当只给第一项赋值的时候，会选取相对应的行然后取所有的列
-
-仿照sklearn实现自己的train_test_split
-
 [仿照sklearn实现自己的train_test_split](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/knn_sk_like.py)
 
 ## 分类准确度accuracy
@@ -132,7 +129,6 @@ best_estimator_和best_score_参数后面有一个_。这是一种常见的语�
 可以看到这个方法适合于小数据集，一旦数据的量级上去了，很难得出结果。
 
 
-#分类模型的评价
 ## 混淆矩阵(Confusion Matrix)
 分类的准确度在数据极度偏斜(Skewed Data)的时候是无法准确衡量结果的，
 对于一个癌症预测系统，输入检查指标，判断是否患有癌症，预测准确度99.9%。这个系统是好是坏呢？如果癌症产生的概率是0.1%，那其实根本不需要任何机器学习算法，只要系统预测所有人都是健康的，即可达到99.9%的准确率。
@@ -155,10 +151,11 @@ ACC = (TP + FP) / (TP + FP + TN + FN) 准确率的问题， 在数据极度不�
 
 * 精准率(Precision)
 P = TP / (TP + FP) 分母为所有预测为1的个数，分子是其中预测对了的个数，即预测值为1，且预测对了的比例.
-**Precision是因为在数据有倾斜的情况时，我们更关注标注值为1的情况**
+
+* Precision是因为在数据有倾斜的情况时，我们更关注标注值为1的情况**
 精准率为我们关注的那个事件，预测的有多准.比如在预计患病，我们选择的分母是所有预测结果为患病的，分子为实际结果也是患病的.
 
-*召回率(Recall)
+* 召回率(Recall)
 Recall = TP / (TP + FN) 所有真实值为1的数据中，预测对了的个数.
 我们所关注的事情真实发生时，我们预测正确的比例。
 
@@ -179,7 +176,7 @@ F1 = 2Precision*Recall / (Precision + Recall)
 调和平均值的特点是如果二者极度不平衡，如某一个值特别高、另一个值特别低时，得到的F1 Score值也特别低；只有二者都非常高，F1才会高。 **因此在数据有偏的情况下，F1  Score的指标更好。**
 
 
-##分类阈值
+## 分类阈值
 分类阈值，即设置判断样本为正例的阈值threshold
 精准率和召回率这两个指标有内在的联系，并且相互冲突。precision随着threshold的增加而增加，recall随着threshold的增大而减小。如果某些场景需要precision，recall都保持在80%，可以通过这种方式求出threshold
 在sklearn中有一个方法叫：decision_function，即返回分类阈值
@@ -187,7 +184,7 @@ F1 = 2Precision*Recall / (Precision + Recall)
 decision_scores = log_reg.decision_function(X_test)
 ```
 
-##TPR FPR ROC AUC
+## TPR FPR ROC AUC
 * TPR：预测为1，且预测对了的数量，占真实值为1的数据百分比， 其实就是召回率。
 TPR = TP/TP+FN
 * FPR: 预测为1，但预测错了的数量，占真实值不为1的数据百分比。
@@ -199,8 +196,6 @@ TPR和FPR之间是成正比的，TPR高，FPR也高。ROC曲线就是刻画这�
 ROC就是描述二者关系的曲线，x轴是FPR，y轴是TPR。
 
 在分类器的效果判断时，ROC曲线距离左上角越近，证明分类器效果越好。如果一条算法1的ROC曲线完全包含算法2，则可以断定性能算法1>算法2。
-![ROC](https://mmbiz.qpic.cn/mmbiz_jpg/1fsH49VZrGEGWkWREJxP37gRq9J1zP2TBkvH8bqPXHA5S23oIvBN5ticXOzolqFmWCSpljtic6t1RS8nb5IEGOYA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
-我们可以看出,左上角的点(TPR=1,FPR=0)，为完美分类，也就是这个医生医术高明，诊断全对。点A(TPR>FPR)，说明医生A的判断大体是正确的。中线上的点B(TPR=FPR)，也就是医生B全都是蒙的，蒙对一半，蒙错一半；下半平面的点C(TPR<FPR)，这个医生说你有病，那么你很可能没有病，医生C的话我们要反着听，为真庸医。
 
 很多时候两个分类器的ROC曲线交叉，无法判断哪个分类器性能更好，这时可以计算曲线下的面积AUC，作为性能度量。
 一般在ROC曲线中，我们关注是曲线下面的面积， 称为AUC（Area Under Curve）。这个AUC是横轴范围（0,1 ），纵轴是（0,1）所以总面积是小于1的。*
