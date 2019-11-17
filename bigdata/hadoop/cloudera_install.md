@@ -168,6 +168,13 @@ http://10.72.83.167:7180/cmf/add-hosts-wizard
 Create a seperated database for hive with latin1 as character set.
 
 
+## Sqoop
+Copy mysql and oracle driver
+```
+cp /tmp/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47-bin.jar /var/lib/sqoop/
+cp ojdbc6.jar /var/lib/sqoop/
+```
+
 ### Spark
 
 Spark Shell 刚刚启动时报一个permission problem with an HDFS directory under /user:
