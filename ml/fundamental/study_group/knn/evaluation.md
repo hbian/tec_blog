@@ -217,7 +217,7 @@ ROC就是描述二者关系的曲线，x轴是FPR，y轴是TPR。
 F1 SCORE VS AUC: 这个仍需要进一步的理解
 https://stackoverflow.com/questions/34698161/how-to-interpret-almost-perfect-accuracy-and-auc-roc-but-zero-f1-score-precisio#34698935
 
-
+![F1SCORE_VS_AUC公众号总结](./f1_vs_auc.jpg)
 
 
 # 回归模型的评价
