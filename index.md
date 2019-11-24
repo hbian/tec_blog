@@ -7,6 +7,7 @@
 <li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
 <li><a href="ml/fundamental/study_group/knn/knn.html">knn</a></li>
 <li><a href="ml/fundamental/study_group/knn/evaluation.html">如何评价模型</a></li>
+<li><a href="ml/fundamental/study_group/knn/feature_engineering.html">特征工程</a></li>
 </ul>
 
 
