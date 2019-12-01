@@ -8,6 +8,7 @@
 <li><a href="ml/fundamental/study_group/knn/knn.html">knn</a></li>
 <li><a href="ml/fundamental/study_group/knn/evaluation.html">如何评价模型</a></li>
 <li><a href="ml/fundamental/study_group/knn/feature_engineering.html">特征工程</a></li>
+<li><a href="ml/fundamental/study_group/knn/linear_regression.html">简单线性回归</a></li>
 </ul>
 
 
