@@ -58,8 +58,7 @@ plt.scatter(X[y==1,0], X[y==1,1])
 
 
 # In[4]:
-
-
+#实现多项式项逻辑回归
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
