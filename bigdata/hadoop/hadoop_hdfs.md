@@ -16,4 +16,9 @@ sudo -u hdfs hadoop dfs -rm -r -skipTrash /folder_name
 
 清空spark任务执行历史记录 hadoop dfs -ls /user/spark/applicationHistory hadoop dfs -rm -r -skipTrash /user/spark/applicationHistory
 
-#hbase 在region server配置中默认最大化压缩七天一次, hbase.hregion.majorcompaction， 改为1days
+
+# HDFS副本集配置
+dfs.replication这个集群默认是3副本，如果非重要数据可以设置为2，节约存储空间。
+
+
+# hbase 在region server配置中默认最大化压缩七天一次, hbase.hregion.majorcompaction， 改为1days

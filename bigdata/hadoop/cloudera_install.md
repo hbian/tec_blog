@@ -159,7 +159,16 @@ server节点安装好后首先安装master节点.
 Node 节点重复上面server安装中的Update hostname和 system optimisation步骤，
 在package installation中， 安装除了server以外的package，这样提前安装好cloudera-scm-agent，这样在加入node到cluster时可以直接添加避免通过local repo的形式安装agent.
 
-agent安装好后， 加入host to cluster 
+agent安装好后， 
+```
+#update server host
+vim /etc/cloudera-scm-agent/config.ini
+server_host=cdhmanager.gauss.tz
+
+systemctl start cloudera-scm-agent
+```
+加入host to cluster 
+
 http://10.72.83.167:7180/cmf/add-hosts-wizard
 然后install parcels
 
