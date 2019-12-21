@@ -11,6 +11,7 @@
 <li><a href="ml/fundamental/study_group/knn/linear_regression.html">简单线性回归</a></li>
 <li><a href="ml/fundamental/study_group/knn/ww5_gradient_descent.html">梯度下降</a></li>
 <li><a href="ml/fundamental/study_group/knn/ww6_logistic_regression.html">逻辑回归</a></li>
+<li><a href="ml/fundamental/study_group/knn/ww7_decision_tree.html">决策树</a></li>
 </ul>
 
 
