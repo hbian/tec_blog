@@ -1,9 +1,14 @@
 ## Summary
 [决策树1：初识决策树](https://mp.weixin.qq.com/s/k_OjObExgsi4DaHMSGUUMA)
+
 [特征选择中的相关概念](https://mp.weixin.qq.com/s/yFxysYAx2Fe--11kJ4M3tg)
+
 [决策树3: 特征选择之寻找最优划分](https://mp.weixin.qq.com/s/lP5ZqfhDCd4Tt3IYpQm-Lg)
+
 [决策树4：构建算法之ID3、C4.5](https://mp.weixin.qq.com/s/lP5ZqfhDCd4Tt3IYpQm-Lg)
+
 [决策树5：剪枝与sklearn中的决策树](https://mp.weixin.qq.com/s/YzNH1DybIlBTcJsacAEQwA)
+
 [决策树6：分类与回归树CART](https://mp.weixin.qq.com/s/XAJnl9HggdQ6-Rab9GJiVw)
 
 ## 决策树与条件概率
