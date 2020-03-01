@@ -5,14 +5,7 @@
 ### fundamental
 <ul>
 <li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
-<li><a href="ml/fundamental/study_group/knn/knn.html">knn</a></li>
-<li><a href="ml/fundamental/study_group/knn/evaluation.html">如何评价模型</a></li>
-<li><a href="ml/fundamental/study_group/knn/feature_engineering.html">特征工程</a></li>
-<li><a href="ml/fundamental/study_group/knn/linear_regression.html">简单线性回归</a></li>
-<li><a href="ml/fundamental/study_group/knn/ww5_gradient_descent.html">梯度下降</a></li>
-<li><a href="ml/fundamental/study_group/knn/ww6_logistic_regression.html">逻辑回归</a></li>
-<li><a href="ml/fundamental/study_group/knn/ww7_decision_tree.html">决策树</a></li>
-<li><a href="ml/fundamental/study_group/knn/ww8_k_means.html">K-Means</a></li>
+<li><a href="ml/fundamental/study_group/ww1_knn/ww1_knn.html">knn</a></li>
 </ul>
 
 
