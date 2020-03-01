@@ -1,3 +1,32 @@
+## CDH hive on spark
+```
+#最重要是set
+#Default Execution Engine
+hive.execution.engine=spark
+Spark On YARN Service: Spark
+
+```
+## HIVE 优化
+https://blog.csdn.net/qq_36753550/article/details/82825207
+set hive.exec.dynamic.partition.mode=nonstrict; （它的默认值是strick，即不允许分区列全部是动态的）
+
+### 避免一些不必要的MR作业
+在hive中，我们可以进行优化，让一些语句避免执行MR作业，从而加快效率，这些参数就是hive.fetch.task.conversion，在hive-site.xml中可以设置下面属性：
+```
+<property>
+  <name>hive.fetch.task.conversion</name>
+  <value>more</value>
+```
+默认值为minimal,在不设置该参数的情况下，查询某一字段会执行mapreduce程序，当设置参数后，就不会走mapreduce程序了
+
+###  数据压缩和存储格式
+压缩方式 Snappy比较好， 和其他压缩方式比较: 压缩后大，压缩速度快，可以分割
+在ORCFile或者Parquet之间选择，暂时使用的ORC
+ORCFile: 数据按行分块，每块按照列存储。压缩快，快速列存取。效率比rcfile高，是rcfile的改良版本。
+```
+#在建表语句末尾添加：
+tblproperties ("orc.compression"="snappy")
+```
 ## 内部表, 外部表 AND 临时表
 * 创建表时：创建内部表时，会将数据移动到数据仓库指向的路径；若创建外部表，仅记录数据所在的路径， 不对数据的位置做任何改变。
 
@@ -124,3 +153,25 @@ set hive.enforce.bucketing = true;
 
 ## Hive表的修改
 https://blog.csdn.net/xueyao0201/article/details/79387647
+
+## HIVE SQL 优化
+* where条件优化
+优化前（关系数据库不用考虑会自动优化）：
+select m.cid,u.id from order m join customer u on( m.cid =u.id )where m.dt='20180808';
+优化后(where条件在map端执行而不是在reduce端执行）：
+select m.cid,u.id from （select * from order where dt='20180818'） m join customer u on( m.cid =u.id);
+
+* union优化
+尽量不要使用union （union 去掉重复的记录）而是使用 union all 然后在用group by 去重
+
+* count distinct优化
+不要使用count (distinct   cloumn) ,使用子查询
+select count(1) from (select id from tablename group by id) tmp;
+ 
+* 用in 来代替join
+如果需要根据一个表的字段来约束另为一个表，尽量用in来代替join .
+select id,name from tb1  a join tb2 b on(a.id = b.id);
+ select id,name from tb1 where id in(select id from tb2); in 要比join 快
+
+* 消灭子查询内的 group by 、 COUNT(DISTINCT)，MAX，MIN。 可以减少job的数量。
+

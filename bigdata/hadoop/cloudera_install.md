@@ -51,10 +51,12 @@ HOSTNAME=cdhmanager.amcc.tz
 
 ### System optimisation
 ```
+#关闭Linux内存透明大页
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
-
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
-
+同时在/etc/rc.local中添加在开机启动时关闭
+echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag' >> /etc/rc.d/rc.local
+echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' >> /etc/rc.d/rc.local
 
 echo 1 > /proc/sys/vm/swappiness
 sysctl vm.swappiness=1
