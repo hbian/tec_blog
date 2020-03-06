@@ -6,7 +6,7 @@
 <ul>
 <li><a href="ml/fundamental/Introduction.html">Introduction</a></li>
 <li><a href="ml/fundamental/study_group/ww1_knn/ww1_knn.html">knn</a></li>
-<li><a href="ml/fundamental/study_group/ww2_evaluation/evaluation.md">evaluation</a></li>
+<li><a href="ml/fundamental/study_group/ww2_evaluation/evaluation.html">evaluation</a></li>
 </ul>
 
 
