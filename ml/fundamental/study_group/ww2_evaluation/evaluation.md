@@ -18,75 +18,13 @@ WW2的学习内容
 ## 训练数据集 & 测试数据集
 在监督学习中，我们为了验证模型的效果，一般会对数据进行拆分，分为训练数据集和测试训练集。使用训练数据集训练模型后，再用测试数据集评估模型的训练结果， 这个过程可能需要进行多次迭代，找到最合适的模型。
 
-引入sklearn的iris测试数据集
-```
-import numpy as np
-from sklearn import datasets
-import matplotlib.pyplot as plt
+[仿照sklearn实现自己的train_test_split](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/ww1_knn/knn_sk_like.py)
 
-iris = datasets.load_iris()
-
-x = iris.data
-y = iris.target
-
-
-print(x.shape)
-#(150, 4)
-print(y.shape)
-#(150)
-
-```
-
-可以看到这里x这个特征数据集是个有150 条数据，4个特征的二维数组， y为一个一行150个数据的一维数组。可以看到这个数据集是有序的，lable 0的在最开始，然后1， 2， 那么需要对整个数据集进行shuffle，再分解。
-有2种方法能够进行分解这个数据集：
-
-* 将x, y合并为一个矩阵，然后对矩阵进行shuffle, 这样x,y 之间的对应关系仍然保持着
-使用np.concatenate方法进行矩阵合并时，必须保证矩阵保持同样的形状，比如纵向拼接，那么必须保证2个数据集有相同的行数，那么就只是将列合并起来， 所以先reshape y, 使其成为一个150行，1列的数组，y.reshape(-1, 1)， 中-1表示自行计算行数，列数为1.
-
-```
-print(y)
-#[0 0 ...1 1 ..22]
-print(y.reshape(-1, 1))
-[[0]
- [0]
- ....
- [1]
- [1]
- ...
- ]
-#使用np.concatenate 方法合并数组，axis=1表示纵向拼接。
-temp_conca = np.concatenate((x, y.reshape(-1, 1)), axis=1)
-print(temp_conca)
-#调用np.random.shuffle会对数组进行重新洗牌，打乱之前的顺序。
-np.random.shuffle(temp_conca)
-print(temp_conca)
-```
-
-
-* 对y的索引进行乱序，根据索引确定与X的对应关系，最后再通过乱序的索引进行赋值
-
-```
-shuffle_index = np.random.permutation(len(x))
-#print(shuffle_index)
-test_index = shuffle_index[:test_size]
-train_index = shuffle_index[test_size:]
-
-x_train=x[train_index]
-y_train=y[train_index]
-print(x)
-print(train_index) 
-print(x_train)
-print("{} {}".format(x_train.shape, y_train.shape))
-```
-
-
-x_train=x[train_index] 这里可以看到一个二维数组，当只给第一项赋值的时候，会选取相对应的行然后取所有的列
-[仿照sklearn实现自己的train_test_split](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/knn_sk_like.py)
 
 ## 分类准确度accuracy
 accuracy_score：函数计算分类准确率，返回被正确分类的样本比例（default）或者是数量（normalize=False）
 
-[手动实现简单的sklearn accuracy_score 方法](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/accuracy.py)
+[手动实现简单的sklearn accuracy_score 方法](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/ww2_evaluation/accuracy.py)
 
 ## 超参数
 超参数是指在机器学习模型初始化时候需要指定的参数，调参就是调的这个参数。
@@ -103,7 +41,9 @@ accuracy_score：函数计算分类准确率，返回被正确分类的样本比
 ## 超参数网格搜索
 在具体的超参数搜索过程中会需要很多问题，超参数过多、超参数之间相互依赖等等。如何一次性地把我们想要得到最好的超参数组合列出来。sklearn中专门封装了一个超参数网格搜索方法Grid Serach。
 
-[GridSearchCV方法调用示例](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/sklearn_gridsearch.py)
+在进行网格搜索之前，首先需要定义一个搜索的参数param_search。是一个数组，数组中的每个元素是个字典，字典中的是对应的一组网格搜索，每一组网格搜索是这一组网格搜索每个参数的取值范围。键是参数的名称，值是键所对应的参数的列表。
+可以看到，当weights = uniform即不使用距离时，我们只搜索超参数k，当weights = distance即使用距离时，需要看超参数p使用那个距离公式。
+[GridSearchCV方法调用示例](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/ww2_evaluation/sklearn_gridsearch.py)
 
 运行结果如下：
 ```
@@ -220,7 +160,37 @@ https://stackoverflow.com/questions/34698161/how-to-interpret-almost-perfect-acc
 ![F1SCORE_VS_AUC公众号总结](./f1_vs_auc.jpg)
 
 
-# 回归模型的评价
+## 回归模型的评价
 
-这个暂时因为对回归类型的模型不太了解，看起来比较蒙，后面有所了解后再回看这一部分
-[线性回归的评价指标](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483749&idx=1&sn=0383d2b98ff1b8e4f38e7e96ced3918a&scene=21#wechat_redirect)
+## 线性回归的评价指标
+简单线性回归的目标是对于训练数据集合来说，使  
+$$\sum_{i=1}^m {(Ytrain_i - ytrain_i)^2}$$ 尽可能小
+
+在得到a和b之后将. 可以使用测试集衡量回归算法好坏的标准 
+$$\sum_{i=1}^m {(Ytest_i - ytest_i)^2}$$。
+
+### 均方误差MSE
+将以上的求和结果再除以m，获得平均值就可以消除数据量带来的差别
+Mean Squared Error
+
+$$\frac{1}\{m}\sum_{i=1}^m {(Ytest_i - ytest_i)^2}$$
+
+### 均方根误差RMSE
+但是使用均方误差MSE收到量纲的影响，可以将其开方（为了解决方差的量纲问题，将其开方得到平方差）得到均方根误差RMSE（Root Mean Squarde Error）
+$$\sqrt{\frac{1}\{m}\sum_{i=1}^m {(Ytest_i - ytest_i)^2}} $$
+
+### 平均绝对误差MAE
+对于线性回归算法还有另外一种非常朴素评测标准。要求真实值  与 预测结果  之间的距离最小，可以直接相减做绝对值，加m次再除以m，即可求出平均距离，被称作平均绝对误差MAE（Mean Absolute Error）
+
+### R square
+[最好的评价线性回归的指标-R Squared](https://blog.csdn.net/huobumingbai1234/article/details/81041699)
+
+RMSE这样的算法无法进行不同量纲之间的比较，比如比较一个衡量房价的的方差金额一个预测身高的方差。这时候我们需要将这些指标放在[0,1]的相同区间内才更好比较，公式直接在网上搜索。
+
+* 分子： 我们的模型预测产生的错误，
+* 分母： 不考虑x的取值，只是很生硬的将所有的预测样本的预测结果都认为是样本y的均值，使用这个模型所产生的错误. 可以理解为一个预测模型，只是该模型与x无关，在机器学习领域称这种模型为基准模型（Baseline Model），适用于所有的线型回归算法
+
+得到如下结论
+* R^2 <= 1
+* R2越大也好，越大说明减数的分子小，错误率低, 我们的模型越好. 当我们预测模型不犯任何错误时，R2最大值1
+* 如果R^2 < 0，说明我们学习到的模型还不如基准模型。此时，很有可能我们的数据不存在任何线性关系。
