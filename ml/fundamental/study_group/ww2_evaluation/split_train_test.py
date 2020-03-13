@@ -40,7 +40,6 @@ print(temp_conca)
 #对y的索引进行乱序，根据索引确定与X的对应关系，最后再通过乱序的索引进行赋值
 
 shuffle_index = np.random.permutation(len(x))
-#print(shuffle_index)
 test_index = shuffle_index[:test_size]
 train_index = shuffle_index[test_size:]
 
