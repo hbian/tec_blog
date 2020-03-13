@@ -12,13 +12,10 @@ WW3的学习内容:
 
 [sklearn中的数据预处理和特征工程](https://www.cnblogs.com/juanjiang/archive/2019/05/30/10948849.html)
 
-## 特征预处理
-数据和特征决定了机器学习的上限，算法和模型只是逼近这个上限而已。 
-
+![特征工程分类总结](./feature_eng.png)
 
 ## 数值型特征无量纲化
 无量纲化并不是把m变成cm，而是无论m, cm都统一变为1，无单位。
-
 无量纲化的原因：
 * 归一化有可能提高精度，数据量级的差异会导致量级较大的属性占据主导地位， 这样可能于实际情况不相符。
 * 数据量级的差异将会导致，当使用梯度下降法寻求最优解时，很有可能走“之字型”路线（垂直等高线走），从而导致需要迭代很多次才能收敛；
@@ -27,46 +24,20 @@ WW3的学习内容:
 一个特例是决策树和树的集成算法们，对决策树我们不需要无量纲化，决策树可以把任意数据都处理得很好。
 
 有以下几种方法进行无量纲化处理：
+* 数据标准化(standardization)，
+* 正太分布化(normalization)
+* 归一化：MinMax归一化, MaxAbs归一化
 
 
-
-## 数据归一化
-常用的归一化方法：
-
-### MinMax归一化(normalization)：把所有数据映射到0-1之间。最值归一化的使用范围是特征的分布具有明显边界(分数0-100， 灰度0-255)
-Xscale = x- xmin/xmax-xmin
-
-```
-from sklearn.preprocessing import MinMaxScaler
-#区间缩放，返回值为缩放到[0, 1]区间的数据
-minMaxScaler  = MinMaxScaler().fit(X_train)
-minMaxScaler.transform(X_train)
-```
-可以看到transform的过程，类似模型训练，首先初始化实例，然后调用fit方法，再transform
-
-缺点：
-* 有新数据加入时，可能导致max和min的变化，需要重新定义
-* MinMaxScaleroutlier离群值异常值的影响较大
-
-
-### MaxAbs归一化
-Xscale = x/|xmax|, 数据映射到[-1, 1]之间, 这个方法的优点是不会移动或者居中任何数据, 因此不会破坏稀疏性。
-```
-from sklearn.preprocessing import MaxAbsScaler
-maxAbsScaler  = MaxAbsScaler().fit(X_train)
-maxAbsScaler.transform(X_train)
-```
-
-
-## 数据标准化(standardization)
-* 均值方差归一化(standardization)： 把所有数据归一到均值为0方差为1的分布中。适用于数据中没有明显的边界,有可能存在极端数据值的情况,可以看到这里的取值并不是0,1之间的，会有负值.
+### 数据标准化(standardization)
+标准化的前提是特征值服从正态分布，标准化后，其转换成标准正态分布。
+把所有数据归一到均值为0方差为1的分布中。适用于数据中没有明显的边界,有可能存在极端数据值的情况,可以看到这里的取值并不是0,1之间的，会有负值.
 Xscale = x- xmean/S
-
+所以这种方法又可以称为均值方差归一化。
 在具体应用时，在对测试数据进行归一化计算时，应当选用训练数据集的train_mean和train_std, 因为测试数据是模拟的真实的数据，真实环境可能无法获得均值和方差，而且如果测试数据集太小，不完整，可能存在较大的数据偏差， 那么做归一化时应当使用
 (xtest-train_mean)/train_std
 以下是以sklearn为例
 ```
-
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 iris = datasets.load_iris(）
@@ -95,8 +66,54 @@ print("X_test_standard: {}".format(X_test_standard))
         return self
 ```
 
+实际Sklearn的调用代码仅需要
+```
+from sklearn.preprocessing import StandardScaler
+#标准化，返回值为标准化后的数据
+standardScaler  = StandardScaler().fit(X_train)
+standardScaler.transform(X_train)
+```
 
-## 标准化VS归一化
+### 数据归一化
+常用的归一化方法：
+### MinMax归一化(normalization)：把所有数据映射到0-1之间。最值归一化的使用范围是特征的分布具有明显边界(分数0-100， 灰度0-255)
+Xscale = x- xmin/xmax-xmin
+
+```
+from sklearn.preprocessing import MinMaxScaler
+#区间缩放，返回值为缩放到[0, 1]区间的数据
+minMaxScaler  = MinMaxScaler().fit(X_train)
+minMaxScaler.transform(X_train)
+```
+可以看到transform的过程，类似模型训练，首先初始化实例，然后调用fit方法，再transform
+
+缺点：
+* 有新数据加入时，可能导致max和min的变化，需要重新定义
+* MinMaxScaler对异常值的存在非常敏感。
+
+
+### MaxAbs归一化
+Xscale = x/|xmax|, 数据映射到[-1, 1]之间, 这个方法的优点是不会移动或者居中任何数据, 因此不会破坏稀疏性。
+```
+from sklearn.preprocessing import MaxAbsScaler
+maxAbsScaler  = MaxAbsScaler().fit(X_train)
+maxAbsScaler.transform(X_train)
+```
+缺点：
+* 有新数据加入时，可能导致max的变化，需要重新定义
+* 离群值异常值的影响较大
+
+### 正态分布化（Normalization）
+正则化的过程是将每个样本缩放到单位范数(每个样本的范数为1)，如果要使用如二次型(点积)或者其它核方法计算两个样本之间的相似性这个方法会很有用。
+该方法是文本分类和聚类分析中经常使用的向量空间模型（Vector Space Model)的基础。
+Sklearn代码如下
+```
+from sklearn.preprocessing import Normalizer
+normalizer  = Normalizer(norm='l2').fit(X_train)
+normalizer.transform(X_train)
+```
+
+### 标准化VS归一化
 这二种方法都是为了消除数据中因量纲不同引起的误差，都是一种线性变换，都是对向量进行按比例压缩后进行平移。
 
 不同点:
@@ -258,3 +275,5 @@ result
 result.shape
 ​
 ```
+
+
