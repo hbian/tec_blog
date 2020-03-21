@@ -48,3 +48,18 @@ DAG Run
 当一个 DAG 满足它的调度时间，或者被外部触发时，就会产生一个 DAG Run。可以理解为由 DAG 实例化的实例。
 Task Instance
 当一个 Task 被调度启动时，就会产生一个 Task Instance。可以理解为由 Task 实例化的实例
+
+### Test && debug dag
+The dag default folder is  referenced in your airflow.cfg, the default one is
+$AIRFLOW_HOME/dags, Put the test dag file in this folder
+```
+#Validate the code
+python3 ./import_ods_debug.py
+#List the dag
+airflow list_dags
+#list the tasks 
+airflow list_tasks import_ods_debug
+# prints the hierarchy of tasks 
+airflow list_tasks import_ods_debug --tree
+# Test one task
+airflow test import_ods_debug ods_start 2020-03-16

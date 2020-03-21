@@ -8,6 +8,7 @@
 <li><a href="ml/fundamental/study_group/ww1_knn/ww1_knn.html">knn</a></li>
 <li><a href="ml/fundamental/study_group/ww2_evaluation/evaluation.html">evaluation</a></li>
 <li><a href="ml/fundamental/study_group/ww3_fea_eng/feature_engineering.html">feature_engineering</a></li>
+<li><a href="ml/fundamental/study_group/ww4_linear_reg/linear_regression.html">linear_regression</a></li>
 </ul>
 
 

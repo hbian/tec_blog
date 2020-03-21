@@ -6,7 +6,7 @@ WW4的学习内容:
 
 [数据科学家学习小组之机器学习（第一期）第四周](https://mp.weixin.qq.com/s/LQad7hbATqkosZrYQw-LMg)
 
-[模型之母：简单线性回归&最小二乘法](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483857&idx=4&sn=2f65cb5a8c54359e9d45a93c16d9d90e&scene=21#wechat_redirect)
+[模型之母：简单线性回归&最小二乘法](https://mp.weixin.qq.com/s/siFRKWLhGOGJCCMjzB7R7A)
 
 [模型之母：简单线性回归的代码实现](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483706&idx=1&sn=5595b2da80c7b062786fa9f1f331f20f&scene=21#wechat_redirect)
 
@@ -135,4 +135,4 @@ RMSE这样的算法无法进行不同量纲之间的比较，比如比较一个�
 * 如果R^2 < 0，说明我们学习到的模型还不如基准模型。此时，很有可能我们的数据不存在任何线性关系。
 
 linear_regression简单代码实现:
-[linear_regression_poc](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/knn/linear_regression.py)
+[linear_regression_poc](https://github.com/hbian/tec_blog/blob/master/ml/fundamental/study_group/ww4_linear_reg/linear_regression.py)
