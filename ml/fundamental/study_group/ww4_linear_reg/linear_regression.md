@@ -4,8 +4,6 @@ WW4的学习内容:
 * 实践：简单线性回归实现及向量化应用
 * 多元线性回归：多选线性回归和正规方程解及实现
 
-[数据科学家学习小组之机器学习（第一期）第四周](https://mp.weixin.qq.com/s/LQad7hbATqkosZrYQw-LMg)
-
 [模型之母：简单线性回归&最小二乘法](https://mp.weixin.qq.com/s/siFRKWLhGOGJCCMjzB7R7A)
 
 [模型之母：简单线性回归的代码实现](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483706&idx=1&sn=5595b2da80c7b062786fa9f1f331f20f&scene=21#wechat_redirect)
