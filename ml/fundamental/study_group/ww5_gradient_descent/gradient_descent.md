@@ -5,7 +5,7 @@
 * [手动实现梯度下降](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247483985&idx=1&sn=759dc972a7dc1bd01af53b68619c01c8&scene=21#wechat_redirect)
 * [线性回归中的梯度下降](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247484001&idx=1&sn=9e7a22277acf5049fd1d945bfe4229db&scene=21#wechat_redirect)
 * [速度更快的随机梯度下降法](https://mp.weixin.qq.com/s/OUslRwKGpS29gncsiyAPyg)
-
+* [梯度下降番外：非常有用的调试方式及总结](https://mp.weixin.qq.com/s?__biz=MzI4MjkzNTUxMw==&mid=2247484074&idx=2&sn=6ec6cc66c9b865b7f304604172e11b2b&chksm=eb932b1cdce4a20a0b4dbd471d586501b998c4e69237baebf2ebecac4a54c4d379d09583c5c8&scene=21#wechat_redirect)
 ## 梯度下降
 
 机器学习就是需找一种函数f(x)并进行优化，且这种函数能够做预测、分类、生成等工作。
@@ -61,3 +61,7 @@
 针对于上述缺点，其实有一种更好的方法：随机梯度下降法SGD（stochastic gradient descent），随机梯度下降是每次迭代使用一个样本来对参数进行更新。
 * 优点：计算速度快；
 * 缺点：收敛性能不好
+
+批量梯度下降法每次对所有样本都看一遍，缺点是慢，缺点是稳定。随机梯度下降法每次随机看一个，优点是快，缺点是不稳定。
+其实还有一种中和二者优缺点的方法小批量梯度下降法 MBGD（Mini-Batch Gradient Descent）：在每次更新时用b个样本，其实批量的梯度下降就是一种折中的方法，用一些小样本来近似全部。优点：减少了计算的开销量，降低了随机性。
+在机器学习领域，随机具有非常大的意义，因为计算速度很快。对于复杂的损失函数来说，随机可以跳出局部最优解，并且有更快的速度。
