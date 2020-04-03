@@ -6,6 +6,10 @@ hive.execution.engine=spark
 Spark On YARN Service: Spark
 
 ```
+
+## Hive 值为NULL
+当hive值中NULL，而预期应该是有其他数值时候，请检查数据结构是否正确，比如定义该列值为int，但写入的数值为string， 这样会导致写入失败，hive写入时没有报错而是自动填充了null
+
 ## HIVE 优化
 https://blog.csdn.net/qq_36753550/article/details/82825207
 set hive.exec.dynamic.partition.mode=nonstrict; （它的默认值是strick，即不允许分区列全部是动态的）
