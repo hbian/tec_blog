@@ -10,8 +10,7 @@
 <li><a href="ml/fundamental/study_group/ww3_fea_eng/feature_engineering.html">feature_engineering</a></li>
 <li><a href="ml/fundamental/study_group/ww4_linear_reg/linear_regression.html">linear_regression</a></li>
 <li><a href="ml/fundamental/study_group/ww5_gradient_descent/gradient_descent.html">gradient_descent</a></li>
-
-
+<li><a href="ml/fundamental/study_group/ww6_pipeline_bias_var/Pipeline_bias_var.html">Pipeline_bias_var</a></li>
 </ul>
 
 
