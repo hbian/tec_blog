@@ -12,6 +12,7 @@
 <li><a href="ml/fundamental/study_group/ww5_gradient_descent/gradient_descent.html">gradient_descent</a></li>
 <li><a href="ml/fundamental/study_group/ww6_pipeline_bias_var/Pipeline_bias_var.html">Pipeline_bias_var</a></li>
 <li><a href="ml/fundamental/study_group/ww7_logistic_regression/ww7_logistic_regression.html">logistic_regression</a></li>
+<li><a href="ml/fundamental/study_group/ww8_decision_tree/ww8_decision_tree.html">decision_tree</a></li>
 </ul>
 
 
