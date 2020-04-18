@@ -52,3 +52,10 @@ decode (expression, sch_1, res_1, sch_2, res_2, ...., sch_n, res_n, default)
 ```
 比较表达式和搜索字，如果匹配，返回结果；如果不匹配，返回default值；如果未定义default值，则返回空值。
 
+## SQL 查询重复的行
+```
+select [every column], count(*)
+from mytable
+group by [every column]
+having count(*) > 1;
+```
