@@ -15,6 +15,7 @@ Kill -1 pid 可以用来重载进程
 lsof -p pid 查看进程打开的文件
 lsof -p pid|grep tcp 查看进程的tcp连接信息
 lsof file_path 查看文件被哪些进程使用
+lsof -i port 查看端口使用信息
 
 ### strace
 strace -p pid 进程的系统调用

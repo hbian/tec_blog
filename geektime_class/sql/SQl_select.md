@@ -116,7 +116,6 @@ SQL: SELECT COUNT(*) as num, role_main, role_assist FROM heros GROUP BY role_mai
 
 从执行顺序上来看，有where语句时，需要先执行 WHERE 进行条件过滤，然后再使用 GROUP BY 进行分组，使用 HAVING 进行分组的条件判断，最后使用 ORDER BY 进行排序。
 
-
 ORDER BY就是对记录进行排序。如果你在前面用到了GROUP BY，实际上是一种分组的聚合方式，已经把一组的数据聚合成为了一条记录，所以再进行排序的时候，也相当于是对分的组进行排序。
 
 
