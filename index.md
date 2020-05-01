@@ -14,6 +14,7 @@
 <li><a href="ml/fundamental/study_group/ww7_logistic_regression/ww7_logistic_regression.html">logistic_regression</a></li>
 <li><a href="ml/fundamental/study_group/ww8_decision_tree/ww8_decision_tree.html">decision_tree</a></li>
 <li><a href="ml/fundamental/study_group/ww9_pca/ww9_pca.html">pca</a></li>
+<li><a href="ml/fundamental/study_group/ww10_svm/ww10_svm.html">svm</a></li>
 </ul>
 
 
