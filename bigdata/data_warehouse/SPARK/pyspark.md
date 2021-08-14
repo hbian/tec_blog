@@ -13,7 +13,7 @@ In a CDH deployment, SPARK_HOME defaults to /usr/lib/spark in package installati
 ```
 # set below env var in /root/.bash_profile 
 export JAVA_HOME=/usr/java/jdk1.8.0_181-cloudera
-export SPARK_HOME=/opt/cloudera/parcels/CDH/lib/spark
+export SPARK_HOME=/data/cloudera/parcels/CDH/lib/spark/
 export SPARK_LOCAL_HOSTNAME=localhost
 export PYSPARK_PYTHON=/data/soft/venv/bin/python
 

@@ -1,3 +1,10 @@
+## Spark Structured Streaming
+https://www.adaltas.com/en/2019/04/18/spark-streaming-data-pipelines-with-structured-streaming/
+
+It is built on top of the existing Spark SQL engine and the Spark DataFrame. The Structured Streaming engine shares the same API as with the Spark SQL engine and is as easy to use. Spark Structured Streaming models streaming data as an infinite table. Its API allows the execution of long-running SQL queries on a stream abstracted as a table.
+
+Internally, by default, Structured Streaming queries are processed using a micro-batch processing engine, which processes data streams as a series of small batch jobs thereby achieving end-to-end latencies as low as 100 milliseconds and exactly-once fault-tolerance guarantees. However, since Spark 2.3, we have introduced a new low-latency processing mode called Continuous Processing, which can achieve end-to-end latencies as low as 1 millisecond with at-least-once guarantees.
+
 ## pyspark_kafka_structured_streaming 示例
 
 该示例将从kafka中应用structured_streaming的方式读取消息，从json消息中过滤和提前部分字段并打印
