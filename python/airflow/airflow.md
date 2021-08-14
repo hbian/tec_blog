@@ -63,3 +63,5 @@ airflow list_tasks import_ods_debug
 airflow list_tasks import_ods_debug --tree
 # Test one task
 airflow test import_ods_debug ods_start 2020-03-16
+
+新的dag刚加入时，默认是

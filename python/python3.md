@@ -4,7 +4,7 @@ https://blog.csdn.net/zongzhengyingzhe/article/details/84568352
 ```
 sudo yum -y groupinstall development
 
-yum install https://centos7.iuscommunity.org/ius-release.rpm -y
+yum install https://mirrors.tuna.tsinghua.edu.cn/ius/ius-release-el7.rpm -y
 
 yum install python36u-pip -y
 
