@@ -80,3 +80,9 @@
 <ul>
 <li><a href="linux/tips.html">踩过的坑</a></li>
 </ul>
+
+
+## JAVA
+<ul>
+<li><a href="java/java内存.html">java内存架构</a></li>
+</ul>
